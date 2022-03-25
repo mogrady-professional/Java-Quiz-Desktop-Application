@@ -53,5 +53,5 @@ As the project has already been compiled into an executable file, all you need t
 # Origonal Screenshot of the W3 Schools Java Quiz
 
 <p align="center" >
- <img src="images/w3.PNG"  height="auto">
+ <img src="images/W3.PNG"  height="auto">
 </p>
