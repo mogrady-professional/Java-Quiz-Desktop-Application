@@ -4,8 +4,19 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Quiz Class inplements ActionListener
+ * @author Michael
+ *
+ */
 public class Quiz implements ActionListener{
-// Global Variables
+	/**
+	 * String Array Data Structure for Questions
+	 * @questions 
+	 * @author Michael
+	 * 
+	 */
+// Global Variables		
 //	Data Structure for Quiz Questions
 	String[] questions = { "What is a correct syntax to output \"Hello World\" in Java?", // Question 1
 			"Java is short for \"JavaScript\".", // Question 2
@@ -35,13 +46,15 @@ public class Quiz implements ActionListener{
 
 	};
 
-//		2D Array of Arrays -> 1) Options of Options 
+/**
+ * 
+ * 2D Array of Options 
+ */
 	String[][] options = {
 			{ " print (\"Hello World\");", " Console.WriteLine(\"Hello World\");", " echo(\"Hello World\");",
 					" System.out.println(\"Hello World\");" }, // Question 1
 			{ "False", "True", "Sometimes", "Possibly" }, // Question 2
-			{ " // This is a comment", " /* This is a comment", " # This is a comment", "> This is a comment" }, // Question
-																													// 3
+			{ " // This is a comment", " /* This is a comment", " # This is a comment", "> This is a comment" }, // Question 3
 			{ "string", "String", "Txt", "myString" }, // Question 4
 			{ " num x = 5", " int x = 5;", " float x = 5;", " x = 5;" }, // Question 5
 			{ " byte x = 2.8f", " x = 2.8f;", " float x = 2.8f;", " int x = 2.8f;" }, // Question 6
@@ -68,7 +81,9 @@ public class Quiz implements ActionListener{
 
 	};
 
-//	Array to hold all Connect Answers
+/**
+ * Array to hold all Correct Answers -> Char values are single quotes
+ */
 	char[] answers = {
 
 			'D', // Answer 1
@@ -102,15 +117,17 @@ public class Quiz implements ActionListener{
 	char guess; // Hold guess
 	char answer; // Hold answer
 	int index; // index
-	int correct_guesses = 0;
-	int total_questions = questions.length;
+	int correct_guesses = 0; // Tally correct # of guesses 
+	int total_questions = questions.length; // Total number of questions 
 	int result; // hold result
-	int seconds = 10; // timer
+	int seconds = 10; // timer countdown
 	
-//	GUI Components
-	JFrame frame = new JFrame();
-	JTextField textfield = new JTextField();
-	JTextArea textarea = new JTextArea();
+/**
+ * Create and Initialize GUI Components
+ */
+	JFrame frame = new JFrame(); // Frame
+	JTextField textfield = new JTextField(); // Current Question
+	JTextArea textarea = new JTextArea(); //  Text Area to Hold Current Questions
 //	Buttons
 	JButton buttonA = new JButton();
 	JButton buttonB = new JButton();
@@ -121,119 +138,135 @@ public class Quiz implements ActionListener{
 	JLabel answer_labelB = new JLabel();
 	JLabel answer_labelC = new JLabel();
 	JLabel answer_labelD = new JLabel();
-//	Timer
+//	Timer Labels
 	JLabel time_label = new JLabel();
-	JLabel seconds_left = new JLabel();
-	JTextField number_right = new JTextField();
-	JTextField percentage = new JTextField();
+	JLabel seconds_left = new JLabel(); // Countdown Timer Display
+	JTextField number_right = new JTextField(); // End Results Calculation
+	JTextField percentage = new JTextField(); // End Results Calculation
 	
-//	Timer	
-	Timer timer = new Timer(1000, new ActionListener() {
+
+/**
+ * Out of time function
+ */
+	Timer timer = new Timer(1100, new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			seconds--;
-			seconds_left.setText(String.valueOf(seconds));
-			if(seconds<=0) {
+			seconds_left.setText(String.valueOf(seconds)); // converted to string
+			if(seconds<=0) { 
 				displayAnswer();
 			}
 			}
 		});
 	
+	/**
+	 * JFrame Config
+	 */
 	public Quiz() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(850,850);
-		frame.getContentPane().setBackground(new Color(50,50,50));
-		frame.setLayout(null);
-		frame.setResizable(false);
+		frame.setTitle("Java Quiz Desktop Application"); // Title of the Application
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit Rule
+		frame.setSize(1100,650); // Size of the Frame
+		frame.getContentPane().setBackground(new Color(50,50,50)); // Color Background -> RGB Backgrounds
+		frame.setLayout(null); // Size everything Manually 
+		frame.setResizable(false); // Adjust side -> false
 		 frame.setLocationRelativeTo(null); // Center on Screen
 		 
-		textfield.setBounds(0,0,850,50);
+//		Title bar (first bar) 
+		textfield.setBounds(5,0,1100,50); // Determine placement of Textfield + height + width (top, bottom, width, height,)
 		textfield.setBackground(new Color(25,25,25));
 		textfield.setForeground(new Color(25,255,0));
-		textfield.setFont(new Font("Open sans",Font.BOLD,30));
-		textfield.setBorder(BorderFactory.createBevelBorder(1));
-		textfield.setHorizontalAlignment(JTextField.CENTER);
-		textfield.setEditable(false);
+		textfield.setFont(new Font("Open sans",Font.BOLD,30)); // Font
+		textfield.setBorder(BorderFactory.createBevelBorder(1)); // Border
+		textfield.setHorizontalAlignment(JTextField.CENTER); // Center text
+		textfield.setEditable(false); // Prevent text editable
 		
-		textarea.setBounds(0,50,850,50);
-		textarea.setLineWrap(true);
-		textarea.setWrapStyleWord(true);
+		
+//		Display under Text Field (second bar) -> Questions
+		textarea.setBounds(5,50,1100,50); // Determine placement of textarea + height + width (top, bottom, width, height,)
+		textarea.setLineWrap(true); // Wrap text to next line
+		textarea.setWrapStyleWord(true); // 
 		textarea.setBackground(new Color(25,25,25));
 		textarea.setForeground(new Color(25,255,0));
 		textarea.setFont(new Font("Open sans",Font.BOLD,25));
 		textarea.setBorder(BorderFactory.createBevelBorder(1));
 		textarea.setEditable(false);
 		
-		buttonA.setBounds(0,100,100,100);
-		buttonA.setFont(new Font("Open sans",Font.BOLD,35));
-		buttonA.setFocusable(false);
-		buttonA.addActionListener(this);
-		buttonA.setText("A");
+//		Button Positioning
+		buttonA.setBounds(5,100,100,100); // (X, Y, width, height) 
+		buttonA.setFont(new Font("Open sans",Font.BOLD,35)); // Font
+		buttonA.setFocusable(false); // Prevent button highlight after click
+		buttonA.addActionListener(this); // Action listener 
+		buttonA.setText("A"); // Title of Button
 		
-		buttonB.setBounds(0,200,100,100);
+		buttonB.setBounds(5,200,100,100); // Button moved down by 100px
 		buttonB.setFont(new Font("Open sans",Font.BOLD,35));
 		buttonB.setFocusable(false);
 		buttonB.addActionListener(this);
 		buttonB.setText("B");
 		
-		buttonC.setBounds(0,300,100,100);
+		buttonC.setBounds(5,300,100,100); // Button moved down by 100px
 		buttonC.setFont(new Font("Open sans",Font.BOLD,35));
 		buttonC.setFocusable(false);
 		buttonC.addActionListener(this);
 		buttonC.setText("C");
 		
-		buttonD.setBounds(0,400,100,100);
+		buttonD.setBounds(5,400,100,100); // Button moved down by 100px
 		buttonD.setFont(new Font("Open sans",Font.BOLD,35));
 		buttonD.setFocusable(false);
 		buttonD.addActionListener(this);
 		buttonD.setText("D");
 		
-		answer_labelA.setBounds(125,100,500,100);
-		answer_labelA.setBackground(new Color(50,50,50));
+//		Answer Labels
+		answer_labelA.setBounds(125,100,500,100); // (X, Y, Length, Width, Height)
+		answer_labelA.setBackground(new Color(50,50,50)); // Color Matches Frame Background
 		answer_labelA.setForeground(new Color(25,255,0));
-		answer_labelA.setFont(new Font("Open sans",Font.PLAIN,15));
+		answer_labelA.setFont(new Font("Open sans",Font.PLAIN,20));
 		
 		answer_labelB.setBounds(125,200,500,100);
 		answer_labelB.setBackground(new Color(50,50,50));
 		answer_labelB.setForeground(new Color(25,255,0));
-		answer_labelB.setFont(new Font("Open sans",Font.PLAIN,15));
+		answer_labelB.setFont(new Font("Open sans",Font.PLAIN,20));
 		
 		answer_labelC.setBounds(125,300,500,100);
 		answer_labelC.setBackground(new Color(50,50,50));
 		answer_labelC.setForeground(new Color(25,255,0));
-		answer_labelC.setFont(new Font("Open sans",Font.PLAIN,15));
+		answer_labelC.setFont(new Font("Open sans",Font.PLAIN,20));
 		
 		answer_labelD.setBounds(125,400,500,100);
 		answer_labelD.setBackground(new Color(50,50,50));
 		answer_labelD.setForeground(new Color(25,255,0));
-		answer_labelD.setFont(new Font("Open sans",Font.PLAIN,15));
+		answer_labelD.setFont(new Font("Open sans",Font.PLAIN,20));
 		
-		seconds_left.setBounds(535,510,100,100);
-		seconds_left.setBackground(new Color(25,25,25));
-		seconds_left.setForeground(new Color(255,0,0));
-		seconds_left.setFont(new Font("Open sans",Font.BOLD,60));
-		seconds_left.setBorder(BorderFactory.createBevelBorder(1));
-		seconds_left.setOpaque(true);
-		seconds_left.setHorizontalAlignment(JTextField.CENTER);
-		seconds_left.setText(String.valueOf(seconds));
+//		Countdown Timer
+		seconds_left.setBounds(985,510,100,100); // (X, Y, Length, Width, Height)
+		seconds_left.setBackground(new Color(25,25,25)); // Dark
+		seconds_left.setForeground(new Color(255,0,0)); // Red
+		seconds_left.setFont(new Font("Open sans",Font.BOLD,60)); // Font and Sizing
+		seconds_left.setBorder(BorderFactory.createBevelBorder(1)); // Border
+		seconds_left.setOpaque(true); // Paint within bounds
+		seconds_left.setHorizontalAlignment(JTextField.CENTER); // centered text
+		seconds_left.setText(String.valueOf(seconds)); // convert integer to string (seconds) to display on screen
 		
-		time_label.setBounds(535,475,100,25);
+//		Countdown Timer Label
+		time_label.setBounds(985,475,100,25);
 		time_label.setBackground(new Color(50,50,50));
 		time_label.setForeground(new Color(255,0,0));
 		time_label.setFont(new Font("Open sans",Font.PLAIN,16));
 		time_label.setHorizontalAlignment(JTextField.CENTER);
-		time_label.setText("timer:");
+		time_label.setText("Timer:");
 		
-		number_right.setBounds(225,225,200,100);
+//		Results label
+		number_right.setBounds(450,225,200,100); // (X, Y, Length, Width, Height)
 		number_right.setBackground(new Color(25,25,25));
 		number_right.setForeground(new Color(25,255,0));
 		number_right.setFont(new Font("Open sans",Font.BOLD,50));
 		number_right.setBorder(BorderFactory.createBevelBorder(1));
 		number_right.setHorizontalAlignment(JTextField.CENTER);
-		number_right.setEditable(false);
+		number_right.setEditable(false); // Disable Editing
 		
-		percentage.setBounds(225,325,200,100);
+//		% Result label
+		percentage.setBounds(450,325,200,100);
 		percentage.setBackground(new Color(25,25,25));
 		percentage.setForeground(new Color(25,255,0));
 		percentage.setFont(new Font("Open sans",Font.BOLD,50));
@@ -241,6 +274,7 @@ public class Quiz implements ActionListener{
 		percentage.setHorizontalAlignment(JTextField.CENTER);
 		percentage.setEditable(false);
 		
+//		Add elements to frame
 		frame.add(time_label);
 		frame.add(seconds_left);
 		frame.add(answer_labelA);
@@ -255,16 +289,27 @@ public class Quiz implements ActionListener{
 		frame.add(textfield);
 		frame.setVisible(true);
 		
+//		Call next question to begin quiz
 		nextQuestion();
 	}
+	
+	
+	/**
+	 * Function to determine current question/end of quiz
+	 */
 	public void nextQuestion() {
 		
 		if(index>=total_questions) {
+//			End of quiz
 			results();
 		}
 		else {
+//			Populate the Frame
+//			Increment the question
 			textfield.setText("Question "+(index+1));
+//			Set the question
 			textarea.setText(questions[index]);
+//				2D Array of Options
 			answer_labelA.setText(options[index][0]);
 			answer_labelB.setText(options[index][1]);
 			answer_labelC.setText(options[index][2]);
@@ -272,17 +317,24 @@ public class Quiz implements ActionListener{
 			timer.start();
 		}
 	}
+	
+	/**
+	 * Triggers on button click -> answer submitted
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+//		Disable button click initially
 			buttonA.setEnabled(false);
 			buttonB.setEnabled(false);
 			buttonC.setEnabled(false);
 			buttonD.setEnabled(false);
 			
+//			Get the index of the selected button
 			if(e.getSource()==buttonA) {
 				answer= 'A';
 				if(answer == answers[index]) {
+//					Increment if correct
 					correct_guesses++;
 				}
 			}
@@ -306,15 +358,19 @@ public class Quiz implements ActionListener{
 			}
 			displayAnswer();
 	}
+	/**
+	 * Display answer functionality 
+	 */
 	public void displayAnswer() {
-		
+// Stop timer
 		timer.stop();
-		
+//		Disable buttons after timer is stopped or answer is chosen
 		buttonA.setEnabled(false);
 		buttonB.setEnabled(false);
 		buttonC.setEnabled(false);
 		buttonD.setEnabled(false);
 		
+//		Change font to red where answer is incorrect -> Any wrong answer is red
 		if(answers[index] != 'A')
 			answer_labelA.setForeground(new Color(255,0,0));
 		if(answers[index] != 'B')
@@ -324,11 +380,15 @@ public class Quiz implements ActionListener{
 		if(answers[index] != 'D')
 			answer_labelD.setForeground(new Color(255,0,0));
 		
+//		Create timer for delay to pause after correct answer is displayed (2s)
 		Timer pause = new Timer(2000, new ActionListener() {
 			
+/**
+ * Reset: colours for answers; timer; increment question
+ */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+//				Return answers to green
 				answer_labelA.setForeground(new Color(25,255,0));
 				answer_labelB.setForeground(new Color(25,255,0));
 				answer_labelC.setForeground(new Color(25,255,0));
@@ -336,18 +396,21 @@ public class Quiz implements ActionListener{
 				
 				answer = ' ';
 				seconds=10;
-				seconds_left.setText(String.valueOf(seconds));
-				buttonA.setEnabled(true);
-				buttonB.setEnabled(true);
-				buttonC.setEnabled(true);
-				buttonD.setEnabled(true);
-				index++;
+				seconds_left.setText(String.valueOf(seconds)); // integer converted to string
+				buttonA.setEnabled(true); // Enable button
+				buttonB.setEnabled(true); // Enable button
+				buttonC.setEnabled(true); // Enable button
+				buttonD.setEnabled(true); // Enable button
+				index++; // increase index to go to next question
 				nextQuestion();
 			}
 		});
-		pause.setRepeats(false);
+		pause.setRepeats(false); // only execute the timer once within the actionPreformed method
 		pause.start();
 	}
+	/**
+	 * Remove buttons from display and calculate percentage score
+	 */
 	public void results(){
 		
 		buttonA.setEnabled(false);
@@ -355,18 +418,23 @@ public class Quiz implements ActionListener{
 		buttonC.setEnabled(false);
 		buttonD.setEnabled(false);
 		
+//		Calculate result as percentage -> int
+//		cast as double to retain the decimals then return as int
 		result = (int)((correct_guesses/(double)total_questions)*100);
 		
-		textfield.setText("RESULTS!");
-		textarea.setText("");
+		textfield.setText("RESULTS!"); // Update text field
+		// clear text
+		textarea.setText("Developed by Michael O'Grady"); 
 		answer_labelA.setText("");
 		answer_labelB.setText("");
 		answer_labelC.setText("");
 		answer_labelD.setText("");
 		
+//		Display result as Percentage
 		number_right.setText("("+correct_guesses+"/"+total_questions+")");
 		percentage.setText(result+"%");
 		
+//		Add elements to the display
 		frame.add(number_right);
 		frame.add(percentage);
 		
