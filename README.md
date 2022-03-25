@@ -9,6 +9,7 @@
 - [Screenshots of the Application](#screenshots-of-the-application)
 - [Description](#description)
 - [System requirements](#system-requirements)
+- [Packages used](#packages-used)
 - [Source Code](#source-code)
 - [Running the application as an executable](#running-the-application-as-an-executable)
 - [Origonal Screenshot of the W3 Schools Java Quiz](#origonal-screenshot-of-the-w3-schools-java-quiz)
@@ -32,6 +33,12 @@ Application is wrapped as an executable application (.exe) using Launch4j and re
 # System requirements
 
 - JavaSE-1.8 or higher.
+
+# Packages used
+
+- java.awt.event
+- java.awt
+- javax.swing
 
 # Source Code
 
