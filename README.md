@@ -26,8 +26,8 @@
 
 # Description
 
-A simple and quickly created GUI Java quiz application which uses 2D String array as a data structure to hold the question options, with String and char 2D arrays to hold questions and answers. The quiz questions were taken from the [Java Quiz on W3 Schools](https://www.w3schools.com/quiztest/quiztest.asp?qtest=JAVA).
-The application is wrapped as an executable application (.exe) using Launch4j and ready to go.
+A simple and quickly created GUI Java quiz application which uses 2D array data structure to hold the question options, with String and char arrays to hold questions and answers. Quiz questions are taken from the [Java Quiz on W3 Schools](https://www.w3schools.com/quiztest/quiztest.asp?qtest=JAVA).
+Application is wrapped as an executable application (.exe) using Launch4j and ready to go.
 
 # System requirements
 
@@ -35,7 +35,7 @@ The application is wrapped as an executable application (.exe) using Launch4j an
 
 # Source Code
 
-The project was developed in Eclipse IDE and all source code and projects are uploaded as an Eclipse project for convenience.
+This project was developed in Eclipse IDE and uploaded as an Eclipse project for convenience.
 
 - Source code is available to view in the src folder
 - Compiled code located in the bin directory.
@@ -47,8 +47,8 @@ The project was developed in Eclipse IDE and all source code and projects are up
 
 As the project has already been compiled into an executable file, all you need to is:
 
-- download the project and run JavaQuiz.exe
-- all other files are not required unless you wish to inspect the source code.
+- Download the project and run Java Quiz Desktop Application.exe
+- All other files are not required unless you wish to inspect the source code and documentation.
 
 # Origonal Screenshot of the W3 Schools Java Quiz
 
