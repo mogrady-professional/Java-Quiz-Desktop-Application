@@ -1,6 +1,10 @@
-<img src="images/quiz.png" width="125" align="right" alt="Java Logo"></a>
+<img src="images/quiz.png" width="125" align="right" alt="Java Logo" style="margin-bottom:10px"></a>
 
 # Java Quiz Desktop Application
+
+<p align="center" >
+ <img src="images/notepad.png"  height="auto">
+</p>
 
 # Table of Contents
 
